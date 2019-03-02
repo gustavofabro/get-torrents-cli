@@ -2,12 +2,26 @@
 
 'use-strict'
 
-var program = require('commander');
-var pkg = require('./package.json');
+const program = require('commander')
+const pkg = require('./package.json')
+const magnetExtract = require('./app/magnet_extract')
+const terminalLink = require('terminal-link')
 
 let getTorrents = (data, options) => {
-    console.log(data);
-};
+    magnetExtract.extractTorrents(data, function (data) {        
+        if (!data.urls.length) {
+            console.log('No data found');
+            return;
+        }
+
+        data.urls.forEach(item => {
+            let link = terminalLink(item.name, item.uri);
+
+            console.log(link)
+            console.log('-'.repeat(10));            
+        });
+    })
+}
 
 program
     .command('get <data>')
@@ -15,3 +29,7 @@ program
     .version(pkg.version)
 
 program.parse(process.argv)
+
+if (process.argv.length < 3) {
+    program.help()
+}
