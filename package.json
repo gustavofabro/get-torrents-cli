@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "CLI crawler for torrents",
   "main": "index.js",
+  "bin": {
+    "magnet-scrape": "./index.js"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
