@@ -1,0 +1,22 @@
+{
+  "name": "scrape-torrents-cli",
+  "version": "1.0.0",
+  "description": "CLI crawler for torrents",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gustavofabro/scrape-torrents-cli.git"
+  },
+  "author": "Gustavo Fabro",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/gustavofabro/scrape-torrents-cli/issues"
+  },
+  "homepage": "https://github.com/gustavofabro/scrape-torrents-cli#readme",
+  "dependencies": {
+    "commander": "^2.19.0"
+  }
+}
