@@ -4,11 +4,11 @@
 
 const program = require('commander')
 const pkg = require('./package.json')
-const magnetExtract = require('./app/magnet_extract')
+const delegator = require('./app/delegator')
 const terminalLink = require('terminal-link')
 
 let getTorrents = (data, options) => {
-    magnetExtract.extractTorrents(data, function (data) {        
+    delegator.extractTorrents(data, function (data) {        
         if (!data.urls.length) {
             console.log('No data found');
             return;

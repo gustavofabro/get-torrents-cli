@@ -7,30 +7,8 @@ const validUrl = require('valid-url')
 let options = {
     url: '',
     headers: {
-       /*  'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:58.0) Gecko/20100101 Firefox/58.0' */
+        'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:58.0) Gecko/20100101 Firefox/58.0'
     }
-}
-
-const googleResultSelector = 'div.rc a'
-
-function getSeeds(query, cbResult) {
-    options.url = `https://www.google.com.br/search?q=${query.replace(/ /g, '+')}+download+torrent`
-    
-    request(options, (err, resp, body) => {
-        if (err) {
-            console.log('Erro: ' + err)
-            return
-        }
-
-        let urls = []
-        const $ = cheerio.load(body)
-
-        $(googleResultSelector).each((i, result) => {
-            urls.push(result.attribs['href'])
-        })
-
-        extractMagnet(urls, cbResult)
-    })
 }
 
 function extractMagnet(urls, cbResult) {
@@ -39,7 +17,7 @@ function extractMagnet(urls, cbResult) {
 
         request(options, (err, resp, body) => {
             let links = []
-            
+
             if (err) {
                 callback(null, links)
                 return;
@@ -48,21 +26,29 @@ function extractMagnet(urls, cbResult) {
             const $ = cheerio.load(body)
 
             $('a[href^="magnet:"]').each((i, elem) => {
-                links.push(elem.attribs['href'])
+                let link = elem.attribs['href']
+
+                if (isValidMagnetLink(link)) {
+                    links.push(link)
+                }
             })
 
             callback(null, links)
         })
     }
 
-    async.map(urls, getMagnetLinks, function (err, res) {
+    function validUrls(item) {
+        return validUrl.isUri(item)
+    }
+
+    async.map(urls.filter(validUrls), getMagnetLinks, function (err, res) {
         if (err) {
             console.log(err)
             cbResult({ urls: [] })
             return
         }
-        
-        cbResult({ urls: res.length? getMagnetDto(res) : []})
+
+        cbResult({ urls: res.length ? getMagnetDto(res) : [] })
     })
 }
 
@@ -89,12 +75,14 @@ function extractTorrentNameFromLink(link) {
     return name;
 }
 
+function isValidMagnetLink(link) {
+    return link.startsWith('magnet:')
+}
+
 module.exports = {
-    extractTorrents: (data, callback) => {
-        if (validUrl.isUri(data)) {
-            extractMagnet([data], callback)
-        } else {
-            getSeeds(data, callback)
-        }
+    extractMagnet: (urls) => {
+        return new Promise((resolve, reject) => {
+            extractMagnet(urls, resolve)
+        })
     }
 }
