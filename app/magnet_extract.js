@@ -1,6 +1,5 @@
 const request = require('request')
 const cheerio = require('cheerio')
-const async = require('async')
 const urlParser = require('url')
 const validUrl = require('valid-url')
 
@@ -33,7 +32,7 @@ function extractMagnet(urls, cbResult) {
                 }
             })
 
-            callback(null, links)
+            callback(links)
         })
     }
 
@@ -41,15 +40,21 @@ function extractMagnet(urls, cbResult) {
         return validUrl.isUri(item)
     }
 
-    async.map(urls.filter(validUrls), getMagnetLinks, function (err, res) {
-        if (err) {
-            console.log(err)
-            cbResult({ urls: [] })
-            return
-        }
 
-        cbResult({ urls: res.length ? getMagnetDto(res) : [] })
-    })
+    function mountPromises(urls) {
+        return urls.filter(validUrls).map(url => {
+            return new Promise((resolve, reject) => {
+                getMagnetLinks(url, resolve, reject)
+            })
+        })
+    }
+
+    Promise.all(mountPromises(urls))
+        .then((data) => {
+            cbResult({ urls: data ? getMagnetDto(data) : [] })
+        }).catch(() => {
+            cbResult({ urls: [] })
+        })
 }
 
 function getMagnetDto(googleMagnetRes) {
