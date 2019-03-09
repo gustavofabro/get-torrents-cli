@@ -10,15 +10,15 @@ let options = {
     }
 }
 
-function extractMagnet(urls, cbResult) {
-    function getMagnetLinks(url, callback) {
+function extractMagnet(urls) {
+    function getMagnetLinks(url, resolve) {
         options.url = url
 
         request(options, (err, resp, body) => {
             let links = []
 
             if (err) {
-                callback(null, links)
+                resolve([])
                 return;
             }
 
@@ -32,7 +32,7 @@ function extractMagnet(urls, cbResult) {
                 }
             })
 
-            callback(links)
+            resolve(links)
         })
     }
 
@@ -43,24 +43,25 @@ function extractMagnet(urls, cbResult) {
 
     function mountPromises(urls) {
         return urls.filter(validUrls).map(url => {
-            return new Promise((resolve, reject) => {
-                getMagnetLinks(url, resolve, reject)
+            return new Promise((resolve) => {
+                getMagnetLinks(url, resolve)
             })
         })
     }
 
-    Promise.all(mountPromises(urls))
-        .then((data) => {
-            cbResult({ urls: data ? getMagnetDto(data) : [] })
-        }).catch(() => {
-            cbResult({ urls: [] })
-        })
+    return new Promise((resolve, reject) => {
+        Promise.all(mountPromises(urls))
+            .then((data) => {
+                resolve({ urls: data ? getMagnetDto(data) : [] })
+            })
+            .catch(reject)
+    })
 }
 
 function getMagnetDto(googleMagnetRes) {
     return googleMagnetRes.reduce((accum, curr) => {
         return accum.concat(curr);
-    }).map((link, i) => {
+    }).map((link) => {
         return {
             uri: link,
             name: extractTorrentNameFromLink(link)
@@ -87,7 +88,9 @@ function isValidMagnetLink(link) {
 module.exports = {
     extractMagnet: (urls) => {
         return new Promise((resolve, reject) => {
-            extractMagnet(urls, resolve)
+            extractMagnet(urls)
+                .then(resolve)
+                .catch(reject)
         })
     }
 }

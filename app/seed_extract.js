@@ -11,23 +11,25 @@ let options = {
 
 const googleResultSelector = 'div.rc a'
 
-function getSeeds(query, resolve) {
+function getSeeds(query) {
     options.url = `https://www.google.com.br/search?q=${query.replace(/ /g, '+')}+download+torrent`
 
-    request(options, (err, resp, body) => {
-        if (err) {
-            console.log('Erro: ' + err)
-            return
-        }
+    return new Promise((resolve, reject) => {
+        request(options, (err, resp, body) => {
+            if (err) {
+                reject('Error fetching data sources. Try again.')
+                return
+            }
 
-        let urls = []
-        const $ = cheerio.load(body)
+            let urls = []
+            const $ = cheerio.load(body)
 
-        $(googleResultSelector).each((i, result) => {
-            urls.push(result.attribs['href'])
+            $(googleResultSelector).each((i, result) => {
+                urls.push(result.attribs['href'])
+            })
+
+            resolve(urls)
         })
-
-        resolve(urls)
     })
 }
 
@@ -38,7 +40,9 @@ module.exports = {
             if (validUrl.isUri(data)) {
                 resolve([data])
             } else {
-                getSeeds(data, resolve);            
+                getSeeds(data)
+                    .then(resolve)
+                    .catch(reject)        
             }
         })
     }

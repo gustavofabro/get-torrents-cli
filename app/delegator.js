@@ -10,9 +10,12 @@ function extractMagnet(query) {
 }
 
 module.exports = {
-    extractTorrents: (data, callback) => {
-        extractSeeds(data)
-            .then(extractMagnet)
-            .then(callback)
+    extractTorrents: (data) => {
+        return new Promise((resolve, reject) => {
+            extractSeeds(data)
+                .then(extractMagnet)
+                .then(resolve)
+                .catch(reject)
+        })
     }
 }
