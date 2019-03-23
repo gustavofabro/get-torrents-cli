@@ -1,5 +1,5 @@
-const seedExtract = require('./seed_extract');
-const magnetExtract = require('./magnet_extract');
+const seedExtract = require('./seed_extract')
+const magnetExtract = require('./magnet_extract')
 
 function extractSeeds(data) {
     return seedExtract.extractSeeds(data)

@@ -4,7 +4,7 @@
   "description": "CLI crawler for torrents",
   "main": "index.js",
   "bin": {
-    "get-torrent": "./index.js"
+    "get-torrents": "./index.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -23,7 +23,6 @@
     "cheerio": "~1.0.0-rc.2",
     "commander": "~2.19.0",
     "request": "~2.88.0",
-    "save": "~2.3.3",
     "terminal-link": "~1.2.0",
     "url": "~0.11.0",
     "valid-url": "~1.0.9"

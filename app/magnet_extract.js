@@ -11,6 +11,8 @@ let options = {
 }
 
 function extractMagnet(urls) {
+    console.log('Extracting magnets links...')
+
     function getMagnetLinks(url, resolve) {
         options.url = url
 
@@ -52,7 +54,7 @@ function extractMagnet(urls) {
     return new Promise((resolve, reject) => {
         Promise.all(mountPromises(urls))
             .then((data) => {
-                resolve({ urls: data ? getMagnetDto(data) : [] })
+                resolve({ urls: data.length ? getMagnetDto(data) : [] })
             })
             .catch(reject)
     })

@@ -7,5 +7,5 @@
 #### npm
 
 ```
-$ npm install scrape-torrents
+$ npm install get-torrents
 ```

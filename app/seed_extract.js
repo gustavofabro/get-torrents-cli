@@ -15,6 +15,8 @@ function getSeeds(query) {
     options.url = `https://www.google.com.br/search?q=${query.replace(/ /g, '+')}+download+torrent`
 
     return new Promise((resolve, reject) => {
+        console.log('Retrieving sources from Google...')
+
         request(options, (err, resp, body) => {
             if (err) {
                 reject('Error fetching data sources. Try again.')

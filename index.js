@@ -8,12 +8,14 @@ const delegator = require('./app/delegator')
 const terminalLink = require('terminal-link')
 
 let getTorrents = (data, options) => {
-    delegator.extractTorrents(data)
+     delegator.extractTorrents(data)
         .then(data => {
             if (!data.urls.length) {
                 console.log('No data found');
                 return;
             }
+            
+            console.log('\nResults:\n')
 
             data.urls.forEach(item => {
                 let link = terminalLink(item.name, item.uri);
@@ -22,7 +24,7 @@ let getTorrents = (data, options) => {
                 console.log('-'.repeat(10));
             });
         })
-        .catch(err => console.log(err))
+        .catch(err => console.log(err)) 
 }
 
 program
