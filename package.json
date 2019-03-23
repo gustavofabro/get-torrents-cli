@@ -1,7 +1,7 @@
 {
-  "name": "scrape-torrents-cli",
+  "name": "get-torrents-cli",
   "version": "1.0.0",
-  "description": "CLI crawler for torrents",
+  "description": "Web scraper that extracts magnetic links from Google or from the informed URL",
   "main": "index.js",
   "bin": {
     "get-torrents": "./index.js"
@@ -11,14 +11,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/gustavofabro/scrape-torrents-cli.git"
+    "url": "git+https://github.com/gustavofabro/get-torrents-cli.git"
   },
   "author": "Gustavo Fabro",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/gustavofabro/scrape-torrents-cli/issues"
+    "url": "https://github.com/gustavofabro/get-torrents-cli/issues"
   },
-  "homepage": "https://github.com/gustavofabro/scrape-torrents-cli#readme",
+  "homepage": "https://github.com/gustavofabro/get-torrents-cli#readme",
   "dependencies": {
     "cheerio": "~1.0.0-rc.2",
     "commander": "~2.19.0",
