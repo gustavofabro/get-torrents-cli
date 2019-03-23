@@ -1,7 +1,7 @@
 <h1 align="center">Scrape torrents CLI</h1>
 
 <p align="center">
-  Realiza a busca de links magnéticos (torrentes) realizando uma pesquisa no google ou buscando de uma URL informada
+  Realiza a busca de links magnéticos (torrents) realizando uma pesquisa no google ou retirando de uma URL informada
 </p>
 
 #### npm
