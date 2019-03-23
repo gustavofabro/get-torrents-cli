@@ -15,6 +15,13 @@
   },
   "author": "Gustavo Fabro",
   "license": "MIT",
+  "keywords": [
+    "scraper",
+    "google",
+    "search",
+    "torrent",
+    "crawler"
+  ],
   "bugs": {
     "url": "https://github.com/gustavofabro/get-torrents-cli/issues"
   },
