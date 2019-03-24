@@ -21,5 +21,5 @@ $ get-torrents site_url
 #### npm
 
 ```
-$ npm install get-torrents-cli
+$ npm install get-torrents-cli -g
 ```
