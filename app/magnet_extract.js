@@ -80,7 +80,7 @@ function extractTorrentNameFromLink(link) {
         name = decodeURI(dnF.substring(3, dnF.indexOf('&amp')))
     }
 
-    return name;
+    return name
 }
 
 function isValidMagnetLink(link) {
