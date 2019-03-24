@@ -1,6 +1,6 @@
 {
   "name": "get-torrents-cli",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Web scraper that extracts magnetic links from Google or from the informed URL",
   "main": "index.js",
   "bin": {
