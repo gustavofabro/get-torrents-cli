@@ -23,3 +23,6 @@ $ get-torrents site_url
 ```
 $ npm install get-torrents-cli -g
 ```
+
+
+<b>This software is for educational purposes only.</b>
