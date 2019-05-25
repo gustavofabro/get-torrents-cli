@@ -1,6 +1,10 @@
 <h1 align="center">Get Torrents</h1>
 
 <p align="center">
+<a href="https://badge.fury.io/js/get-torrents-cli"><img src="https://badge.fury.io/js/get-torrents-cli.svg" alt="npm version" height="18"></a>
+</p>
+
+<p align="center">
   Search for torrents on google or get the magnetic links of an informed website.
 </p>
 
