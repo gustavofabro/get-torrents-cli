@@ -16,10 +16,10 @@ To perform a google search by informing a term (It does NOT use the Google Searc
 $ get-torrents "torrent name"
 ```
 
-To extract all magnet links from a specific site
+To extract all magnet links from a specific link
 
 ```
-$ get-torrents site_url
+$ get-torrents http://www.example.com/film/
 ```
 
 #### npm
