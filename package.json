@@ -7,7 +7,7 @@
     "get-torrents": "./index.js"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -33,5 +33,9 @@
     "terminal-link": "~1.2.0",
     "url": "~0.11.0",
     "valid-url": "~1.0.9"
+  },
+  "devDependencies": {
+    "jest": "^25.1.0",
+    "rewire": "^5.0.0"
   }
 }
