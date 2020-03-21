@@ -7,7 +7,9 @@
     "get-torrents": "./index.js"
   },
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "test:coverage": "npm test -- --coverage",
+    "test:badges": "npm run test:coverage  && jest-coverage-badges"
   },
   "repository": {
     "type": "git",
@@ -29,6 +31,7 @@
   "dependencies": {
     "cheerio": "~1.0.0-rc.2",
     "commander": "~2.19.0",
+    "jest-coverage-badges": "^1.1.2",
     "request": "~2.88.0",
     "terminal-link": "~1.2.0",
     "url": "~0.11.0",
