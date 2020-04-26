@@ -7,7 +7,8 @@ let options = {
     url: '',
     headers: {
         'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:58.0) Gecko/20100101 Firefox/58.0'
-    }
+    },
+    timeout: 6000
 }
 
 function extractMagnet(urls) {
@@ -61,9 +62,7 @@ function extractMagnet(urls) {
 }
 
 function getMagnetDto(googleMagnetRes) {
-    return googleMagnetRes.reduce((accum, curr) => {
-        return accum.concat(curr);
-    }).map((link) => {
+    return googleMagnetRes.flat().map((link) => {
         return {
             uri: link,
             name: extractTorrentNameFromLink(link)
