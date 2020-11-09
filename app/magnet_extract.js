@@ -55,14 +55,18 @@ function extractMagnet(urls) {
     return new Promise((resolve, reject) => {
         Promise.all(mountPromises(urls))
             .then((data) => {
-                resolve({ urls: data.length ? getMagnetDto(data) : [] })
+                const urls = data.length ? 
+                        getMagnetDto(data.reduce((acc, curr) => [...acc, ...curr], [])) 
+                        : []
+
+                resolve({ urls })
             })
             .catch(reject)
     })
 }
 
 function getMagnetDto(googleMagnetRes) {
-    return googleMagnetRes.flat().map((link) => {
+    return googleMagnetRes.map((link) => {
         return {
             uri: link,
             name: extractTorrentNameFromLink(link)
