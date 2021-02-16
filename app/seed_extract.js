@@ -10,7 +10,7 @@ let options = {
     timeout: 10000
 }
 
-const googleResultSelector = 'div.rc a'
+const googleResultSelector = '#search a'
 
 function getSeeds(query) {
     options.url = `https://www.google.com.br/search?q=${query.replace(/ /g, '+')}+download+torrent`
@@ -26,7 +26,7 @@ function getSeeds(query) {
 
             let urls = []
             const $ = cheerio.load(body)
-
+            
             $(googleResultSelector).each((i, result) => {
                 urls.push(result.attribs['href'])
             })
