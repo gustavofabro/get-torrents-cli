@@ -14,7 +14,7 @@ let getTorrents = (data, options) => {
                 console.log('No data found');
                 return;
             }
-            
+
             console.log('\nResults:\n')
 
             data.urls.forEach(item => {
@@ -24,7 +24,7 @@ let getTorrents = (data, options) => {
                 console.log('-'.repeat(10));
             });
         })
-        .catch(err => console.log(err)) 
+        .catch(err => console.log(err))
 }
 
 program

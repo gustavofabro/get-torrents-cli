@@ -2,7 +2,7 @@ const request = require('request')
 const cheerio = require('cheerio')
 const validUrl = require('valid-url')
 
-let options = {
+const options = {
     url: '',
     headers: {
         'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:58.0) Gecko/20100101 Firefox/58.0'
@@ -10,13 +10,13 @@ let options = {
     timeout: 10000
 }
 
-const googleResultSelector = '#search a'
+const googleResultSelector = "#main a";
 
 function getSeeds(query) {
     options.url = `https://www.google.com.br/search?q=${query.replace(/ /g, '+')}+download+torrent`
 
     return new Promise((resolve, reject) => {
-        console.log('Retrieving sources from Google...')
+        console.log(`Retrieving sources from Google for ${query}...`)
 
         request(options, (err, resp, body) => {
             if (err) {
@@ -24,12 +24,17 @@ function getSeeds(query) {
                 return
             }
 
-            let urls = []
+            const urls = []
             const $ = cheerio.load(body)
-            
-            $(googleResultSelector).each((i, result) => {
-                urls.push(result.attribs['href'])
-            })
+            $('footer').remove();
+            $(googleResultSelector)
+                .filter((i, result) => result.attribs['href'].indexOf('url=') !== -1)
+                .each((i, result) => {
+                    const dirtyHref = result.attribs['href'];
+                    const fisrtSection = dirtyHref.substring(dirtyHref.indexOf('url=') + 4);
+                    const finalUrl = fisrtSection.substring(0, fisrtSection.indexOf('&'))
+                    urls.push(finalUrl)
+                })
 
             resolve(urls)
         })
@@ -44,7 +49,7 @@ module.exports = {
             } else {
                 getSeeds(data)
                     .then(resolve)
-                    .catch(reject)        
+                    .catch(reject)
             }
         })
     }
