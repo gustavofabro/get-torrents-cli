@@ -1,6 +1,6 @@
 {
   "name": "get-torrents-cli",
-  "version": "1.1.3",
+  "version": "1.1.4",
   "description": "Web scraper that extracts magnetic links from Google or from the informed URL",
   "main": "index.js",
   "bin": {
@@ -31,7 +31,6 @@
   "dependencies": {
     "cheerio": "~1.0.0-rc.2",
     "commander": "~2.19.0",
-    "get-torrents-cli": "^1.1.3",
     "jest-coverage-badges": "^1.1.2",
     "request": "~2.88.0",
     "terminal-link": "~1.2.0",
